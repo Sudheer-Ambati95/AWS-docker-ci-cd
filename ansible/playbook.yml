@@ -1,0 +1,15 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Run Docker Container
+      docker_container:
+        name: my-app
+        image: "<AWS_ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/my-app:latest"
+        state: started
+        ports:
+          - "80:80"
